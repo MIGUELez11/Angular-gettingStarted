@@ -1,0 +1,23 @@
+<div>
+    <h1>learning angular</h1>
+    <p>This is how angular works :P</p>
+
+    <p>Welcome {{name ? name : "Guest"}}</p>
+    <input type="text" #input [value]="name" (keyup)="handleInput(input.value)">
+    <input type="text" [(ngModel)]="name">
+    <div *ngIf="name.length; then thenBlock; else elseBlock"></div>
+    <ng-template #thenBlock>
+        <h2>Hola</h2>
+
+    </ng-template>
+    <ng-template #elseBlock>
+        <h2>Adios</h2>
+    </ng-template>
+
+    <div *ngFor="let tag of getData()">
+        <h4>{{tag}}</h4>
+    </div>
+
+    <p>{{parentData()}}</p>
+    <button (click)="fireEvent()">Send Event to Parent</button>
+</div>
