@@ -1,23 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LearningAngularComponent } from './learning-angular/learning-angular.component';
-import { ParentComponentComponent } from './parent-component/parent-component.component';
 import {NameTransferService} from "./name-transfer.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     LearningAngularComponent,
-    ParentComponentComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     NameTransferService

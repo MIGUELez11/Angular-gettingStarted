@@ -9,14 +9,26 @@ import {NameTransferService} from "../name-transfer.service";
 export class LearningAngularComponent implements OnInit {
   
   @Input() public parentData;
-  public name = "";
+  private _name = "";
+  public data;
+
   @Output() public childEvent = new EventEmitter()
   
   constructor(private _nameService : NameTransferService) {}
   
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value) {
+    console.log("the name is: ", value);
+    this._nameService.name = value;
+    this._nameService.name$.emit(value);
+  }
+
   public handleInput(event) {
     console.log(event);
-    this.name = event;
+    this._name = event;
     this._nameService.name = event;
   }
 
@@ -25,11 +37,18 @@ export class LearningAngularComponent implements OnInit {
   }
 
   public fireEvent() {
-    console.log("fired", this.name);
-    this.childEvent.emit(`${this.name}`)
+    console.log("fired", this._name);
+    this.childEvent.emit(`${this._name}`)
+  }
+
+  public parseJson(data) {
+    return JSON.stringify(data, null, 2);
   }
 
   ngOnInit(): void {
-    this.name = this._nameService.name;
+    this._name = this._nameService.name;
+    this._nameService.name$.subscribe(value => {
+      this.data = value;
+    })
   }
 }
